@@ -2,7 +2,7 @@
 
 namespace UseCase10
 {
-    internal class Program
+    public class Program
     {
         // As regex should have at least one uppercase letter, one lowercase letter, one digit, and one special character
         // the minimum acceptable max length should be > 4
@@ -12,13 +12,18 @@ namespace UseCase10
         {
             var userInput = HandleInput();
 
-            Console.WriteLine(Match(userInput.length, userInput.data));
+            Console.WriteLine(IsMatch(userInput.length, userInput.data));
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
         }
 
-        public static bool Match(long length, string data)
+        public static bool IsMatch(long length, string data)
         {
+            if (length < minimumStringLenght)
+            {
+                return false;
+            }
+
             var pattern = $"^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\\\\]^_`{{|}}~])[\\S]{{{minimumStringLenght},{length}}}$";
             return Regex.IsMatch(data, pattern);
         }
